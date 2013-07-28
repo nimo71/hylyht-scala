@@ -1,0 +1,11 @@
+bin/
+ocre.iml
+target/
+build/
+out/
+.buildpath
+.classpath
+.gradle/
+.idea/
+.project
+.settings/

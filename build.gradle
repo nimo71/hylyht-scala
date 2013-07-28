@@ -1,0 +1,41 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'jetty' 
+
+repositories{
+    mavenCentral() 
+}
+
+dependencies{
+	providedCompile "javax.servlet:servlet-api:2.5"
+    compile "org.slf4j:slf4j-api:1.7.5"
+	compile "com.google.guava:guava:12.0"
+	compile "commons-logging:commons-logging:1.1.1"
+	compile "org.eclipse.jetty.aggregate:jetty-all:7.6.4.v20120524"
+	compile "org.apache.commons:commons-lang3:3.1"
+	compile "com.google.guava:guava:12.0"
+	testCompile "org.hamcrest:hamcrest-all:1.1"
+	testCompile "org.apache.httpcomponents:fluent-hc:4.2.1"
+	testCompile "org.mockito:mockito-all:1.9.0"
+    testCompile "junit:junit:4.11"
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.6'
+}
+
+[jettyRun, jettyRunWar,jettyStop]*.stopPort = 8081
+[jettyRun, jettyRunWar,jettyStop]*.stopKey = 'stopKey'
+test {
+    exclude '**/*IT.*'
+}
+task integrationTest(type: Test, depends:test) {
+    include '**/*IT.*'
+    doFirst {
+        jettyRun.daemon = true
+        jettyRun.execute()
+    }
+    doLast {
+        jettyStop.execute()
+    }
+}
