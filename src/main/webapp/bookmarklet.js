@@ -1,14 +1,5 @@
-/*
-    The bookmarklet adds a top menu bar to allow various highlighing on 
-    the page and the submission of page content the user is interested in. 
-
-    If the bookmarklet fails to run for any reason then submit the url to 
-    the server for analysis. 
-
-    ...
-*/
-
 (function () {
+
 	function appendStyles() {
 		var css = document.createElement('style');
 		css.type = 'text/css';
@@ -16,13 +7,13 @@
 		
 		var styles = '.ocre_highlight { background-color: #ff9 }';
 		styles += ' .ocre_bookmarklet_menu { '+ 
-				'position: absolute; '+
+				'position: fixed; '+
 				'top: 0; '+
 				'left: 0; '+
 				'z-index: 2147483647; '+
 				'clear: both; '+
-				'background-color: grey; '+
-				'opacity: 0.85; '+
+				'background-color: black; '+
+				'opacity: 0.7; '+
 				'text-align: left; '+ 
 				'height: 3em; '+
 				'width: 100%; '+
@@ -30,12 +21,31 @@
 				'border-bottom-width: 1px; '+
 				'border-bottom-style: solid; '+
 			'}';
+		styles += ' .ocre_annotation { '+
+				'float: left; '+
+				'margin-left: 1em; '+
+				'margin-top: 0.7em; '+
+				'margin-bottom: 1em; '+
+				'padding-left: 1em; '+
+				'padding-right: 1em; '+
+				'font-weight: normal; '+
+				'color: lightgrey !important; ' +
+			'}';
 		styles += ' .ocre_menu_button { '+
 				'display: block; '+
 				'float: left; '+
 				'margin-left: 1em; '+
 				'margin-top: 0.7em; '+
 				'margin-bottom: 1em; '+
+				'padding-left: 1em; '+
+				'padding-right: 1em; '+
+				'text-decoration: none; '+
+				'font-weight: normal; '+
+				'color: white !important; ' +
+			'}';
+		styles += ' .ocre_menu_button:hover { '+
+				'font-weight: bold; '+
+				'font-style: italic; '+
 			'}';
 		
 		if (css.styleSheet) css.styleSheet.cssText = styles;
@@ -44,22 +54,55 @@
 		document.head.appendChild(css);
 	}
 	
+	function createAnnotation(text) {
+		var span = document.createElement('span'); 
+        span.className = 'ocre_annotation';
+        span.appendChild(document.createTextNode(text));
+        return span;
+	}
 	
-    function highlightAllParagraphs() {
-        var els = Array.prototype.slice.call(document.getElementsByTagName('p'))
-            // .concat(Array.prototype.slice.call(document.getElementsByTagName('h1')))
-            // .concat(Array.prototype.slice.call(document.getElementsByTagName('h2')))
-            // .concat(Array.prototype.slice.call(document.getElementsByTagName('h3')))
-            // .concat(Array.prototype.slice.call(document.getElementsByTagName('h4')))
-            ;
+    function createButton(text, clickHandler) {
+        var button = document.createElement('a'); 
+        button.className = 'ocre_menu_button';
+        button.appendChild(document.createTextNode(text)); 
+        
+        var href = document.createAttribute('href');
+        href.nodeValue = '#';
+        button.setAttributeNode(href);
+        
+        if (button.addEventListener) 
+            button.addEventListener("click", clickHandler, false);
+        else 
+            button.attachEvent('onclick', clickHandler);
 
-        for (i=0; i < els.length; i++) {
-            // change to add a style to elements, can then be removed on toggle
-            els[i].className = 'ocre_highlight ' + els[i].className;
-        }
+        return button;
     }
-
-    function submit() { alert('Submitting...'); }
+    
+	function getSelectionHtml() {
+	    var html = "";
+	    if (typeof window.getSelection != "undefined") {
+	        var sel = window.getSelection();
+	        if (sel.rangeCount) {
+	            var container = document.createElement("div");
+	            for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+	                container.appendChild(sel.getRangeAt(i).cloneContents());
+	            }
+	            html = container.innerHTML;
+	        }
+	    } else if (typeof document.selection != "undefined") {
+	        if (document.selection.type == "Text") {
+	            html = document.selection.createRange().htmlText;
+	        }
+	    }
+	    return html;
+	}
+	
+	function submitSelection() {
+		alert(getSelectionHtml());
+		// popup dialog to annotate highlight...
+		// if a page already has highlights then the toolbar should mark the highlights and provide tooltips if the user 
+		// hovers, containing previous annotations.
+	}
 
     function cancel() {
     	
@@ -88,69 +131,19 @@
         window.bookmarklet = undefined; 
     }
 
-    function createButton(text, clickHandler) {
-        var button = document.createElement('a'); 
-        button.className = 'ocre_menu_button';
-        button.appendChild(document.createTextNode(text)); 
-        
-        var href = document.createAttribute('href');
-        href.nodeValue = '#';
-        button.setAttributeNode(href);
-        
-        if (button.addEventListener) 
-            button.addEventListener("click", clickHandler, false);
-        else 
-            button.attachEvent('onclick', clickHandler);
-
-        return button;
-    }
+    // Change menu so that it displays down the right hand side of the page?? 
+    // Could slide in and out from the right hand side along the top of the window??
+	function showMenu() {
+	    var ocreMenu = document.createElement('div');
+	    ocreMenu.className = 'ocre_bookmarklet_menu';
+	    
+	    document.body.insertBefore(ocreMenu, document.body.firstChild);
+	    ocreMenu.appendChild(createAnnotation('Select text and submit as a highlight...'));
+	    ocreMenu.appendChild(createButton('Submit Selection', submitSelection));
+	    ocreMenu.appendChild(createButton('Cancel', cancel));
+	}
 
     // add bookmarklet stylesheet
 	appendStyles();
-
-    // add menu to top of the document 
-    var ocreMenu = document.createElement('div');
-    ocreMenu.className = 'ocre_bookmarklet_menu';
-    
-    document.body.insertBefore(ocreMenu, document.body.firstChild);
-    ocreMenu.appendChild(createButton('Submit', submit));
-    ocreMenu.appendChild(createButton('All paragraphs', highlightAllParagraphs));
-    ocreMenu.appendChild(createButton('Cancel', cancel));
-
-    // // highlight user selection 
-    // function selectElementContents(el) {
-    //     var range;
-    //     if (window.getSelection && document.createRange) {
-    //         range = document.createRange();
-    //         var sel = window.getSelection();
-    //         range.selectNodeContents(el);
-    //         sel.removeAllRanges();
-    //         sel.addRange(range);
-    //     } 
-    //     else if (document.body && document.body.createTextRange) {
-    //         range = document.body.createTextRange();
-    //         range.moveToElementText(el);
-    //         range.select();
-    //     }
-    // }
-
-    // Longest paragraph...
-    // var paragraphs = document.getElementsByTagName('p');
-    // var longest = 0;
-    // var longestIndex = undefined;
-    // for (var i=0; i < paragraphs.length; i++) {
-    //     for (var j=0; j < paragraphs[i].childNodes.length; j++) {
-    //         var curNode = paragraphs[i].childNodes[j];
-    //         if (curNode.nodeName === "#text") {
-    //             var text = curNode.nodeValue;
-    //             var paraLength = text.length; 
-    //             if (paraLength > longest) {
-    //                 longest = paraLength; 
-    //                 longestIndex = i; 
-    //             }        
-    //         }
-    //     }
-    // }; 
-    // paragraphs[longestIndex].style.background = "#ff9";
-
+	showMenu();
 })();
