@@ -39,3 +39,23 @@ task integrationTest(type: Test, depends:test) {
         jettyStop.execute()
     }
 }
+
+task runJsTests(type:Exec) {
+    workingDir './src/test/js'
+
+    //on windows:
+//    commandLine 'cmd', '/c', 'mocha-phantomjs TestRunner.html'
+
+    //on linux
+    commandLine 'phantomjs'
+    args 'scripts/phantom-js-tests.js', 'SpecRunner.html'
+
+    //store the output instead of printing to the console:
+//    standardOutput = new ByteArrayOutputStream()
+
+    //extension method stopTomcat.output() can be used to obtain the output:
+    ext.output = {
+        return standardOutput.toString()
+    }
+}
+
