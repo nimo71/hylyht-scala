@@ -1,11 +1,12 @@
 define(function() {
 
-    function Main() {
+    function Main(routes) {
         var oldLocation = location.href;
+
         setInterval(function() {
             if(location.href != oldLocation) {
-                if (this.locationListener) {
-                    locationListener(location.href);
+                if (routes.respond) {
+                    routes.respond(location.href);
                 }
                 oldLocation = location.href
             }

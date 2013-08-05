@@ -1,26 +1,28 @@
-define(['app/main'], function(main) {
+define(['main', 'Routes'], function(Main) {
 
     describe('Main', function() {
 
-        it('should notify when the browser location changes', function() {
-
-            var changedLocation = '';
-
-            function locationChanged(newLocation) {
-                changedLocation = newLocation;
+        it ('should request a response from routes on window location change', function(done) {
+            var responsePath = '';
+            function RoutesStub() {
+                this.respond = function(path) {
+                    responsePath = path;
+                }
             }
-            main.locationListener = locationChanged;
+            new Main(new RoutesStub());
 
             window.location.href = window.location.href + '#!changed';
 
-            var interval;
-            interval = setInterval(function(){
-                clearInterval(interval);
-                changedLocation.should.match(/.+#!changed$/);
-            }, 1000);
-
+            var interval = setInterval(function(){
+                try {
+                    clearInterval(interval);
+                    expect(responsePath).to.match(/.+#!changed$/);
+                    done();
+                }
+                catch (e) {
+                    done(e);
+                }
+            }, 600);
         });
-
-        it ('should display login form when user unauthenticated');
     });
 });

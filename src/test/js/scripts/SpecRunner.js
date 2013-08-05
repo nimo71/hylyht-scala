@@ -1,8 +1,9 @@
 require.config({
-    baseUrl :'src/',
-    urlArgs : "v="+(new Date()).getTime(),
+    baseUrl :'../../main/webapp/js',
+    //urlArgs : "v="+(new Date()).getTime(),
     paths : {
-        app : '../../../main/webapp/js/'
+        spec : '../../../test/js/src/spec',
+        vendor: '../../../test/js/src/vendor'
     }
 });
 

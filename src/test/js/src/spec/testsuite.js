@@ -3,5 +3,5 @@ define([
         'spec/RoutesTest'
     ],
 function() {
-
+    console.log("*** All tests complete ***")
 });
