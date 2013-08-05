@@ -6,11 +6,11 @@ define(function() {
         setInterval(function() {
             if(location.href != oldLocation) {
                 if (routes.respond) {
-                    routes.respond(location.href);
+                    routes.respond(location.href).send();
                 }
                 oldLocation = location.href
             }
-        }.bind(this), 500);
+        }, 500);
     }
 
     return Main;

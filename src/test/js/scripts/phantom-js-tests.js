@@ -9,6 +9,8 @@
 
     var page = new WebPage();
 
+    var testFailed = false;
+
     // This is required because PhantomJS sandboxes the website and it does not
     // show up the console messages from that page by default
     page.onConsoleMessage = function (msg) {
@@ -36,9 +38,15 @@
         }
         console.log(formatted);
 
+        if (formatted && formatted.indexOf("##teamcity[testFailed") !== -1) {
+            testFailed = true;
+        }
         // Exit as soon as the last test finishes.
-        if (formatted && formatted.indexOf("complete") !== -1) {
-            phantom.exit();
+        if (formatted && formatted.indexOf("##teamcity[testSuiteFinished name='mocha.suite'") !== -1) {
+            if (testFailed)
+                phantom.exit(-1);
+            else
+                phantom.exit();
         }
     };
 

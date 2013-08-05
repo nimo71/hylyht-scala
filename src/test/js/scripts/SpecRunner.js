@@ -21,8 +21,8 @@ require(['require', 'vendor/chai', 'vendor/mocha'], function(require, chai){
     mocha.setup({
         ui: 'bdd',
         reporter: function(runner) {
-            new mocha.reporters.Dot(runner);
-//            new mocha.reporters.Teamcity(runner);
+//            new mocha.reporters.Dot(runner);
+            new mocha.reporters.Teamcity(runner);
 //            new mocha.reporters.Spec(runner);
 //            new mocha.reporters.XUnit(runner);
             new mocha.reporters.HTML(runner);
