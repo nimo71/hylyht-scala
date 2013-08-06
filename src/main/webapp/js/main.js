@@ -1,3 +1,14 @@
+requirejs.config({
+    baseUrl: 'js',
+    paths: {
+        jquery: 'jquery-1.9.1.min'
+    },
+    map: {
+        '*': { 'jquery': 'jquery-private' },
+        'jquery-private': { 'jquery': 'jquery' }
+    }
+});
+
 define(function() {
 
     function Main(routes) {

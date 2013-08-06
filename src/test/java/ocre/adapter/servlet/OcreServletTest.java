@@ -87,7 +87,8 @@ public class OcreServletTest {
 		
 		ArgumentCaptor<char[]> argument = ArgumentCaptor.forClass(char[].class);
 		verify(responseWriter).write(argument.capture(), anyInt(), anyInt());
-		assertThat(new String(argument.getValue()), containsString("<script src=\"js/main.js\"></script>")); 
+        assertThat(new String(argument.getValue()), containsString(
+                "<script type=\"text/javascript\" src=\"js/vendor/require.js\" data-main=\"js/main.js\"></script>"));
 	}
 	
 	@Test
