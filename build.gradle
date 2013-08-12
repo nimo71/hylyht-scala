@@ -41,7 +41,7 @@ task integrationTest(type: Test, depends:test) {
     }
 }
 
-task runJsTests(type:Exec) {
+task jsTest(type:Exec) {
     workingDir './src/test/js'
 
     //on windows:

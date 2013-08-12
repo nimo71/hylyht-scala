@@ -3,13 +3,13 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-	<display-name>WebMarker</display-name>
+	<display-name>Hylyht</display-name>
 	
 	<!-- Declare the existence of a servlet. -->
 	<!-- Handles all requests into the application -->
 	<servlet>
 		<servlet-name>FrontServlet</servlet-name>
-		<servlet-class>webmarker.adapter.servlet.WebMarkerServlet</servlet-class>
+		<servlet-class>hylyht.adapter.servlet.HylyhtServlet</servlet-class>
 	</servlet>
 
 	<!-- Map URLs to that servlet. -->
