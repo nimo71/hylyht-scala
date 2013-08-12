@@ -1,6 +1,10 @@
 define([], function() {
 
-    function NotFound() {
+    var NotFound = function() {
+    }
+
+    NotFound.prototype.send = function() {
+
     }
 
     return NotFound;

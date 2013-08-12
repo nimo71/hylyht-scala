@@ -1,0 +1,12 @@
+<h1>WebMarker</h1>
+
+<div>
+    <a href="javascript:(function(){
+                if (window.bookmarklet) return;
+                var jsCode = document.createElement('script');
+                jsCode.setAttribute('src', 'http://localhost:8080/webmarker/bookmarklet.js');
+                document.body.appendChild(jsCode);
+                window.bookmarklet = true;
+            })();">Bookmarklet</a>
+    <p>Drag the bookmarklet to your browsers bookmarks bar...</p>
+</div>

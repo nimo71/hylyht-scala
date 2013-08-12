@@ -1,7 +1,8 @@
 requirejs.config({
     baseUrl: 'js',
     paths: {
-        jquery: 'jquery-1.9.1.min'
+        jquery: 'vendor/jquery-1.9.1.min',
+        knockout: 'vendor/knockout-2.3.0'
     },
     map: {
         '*': { 'jquery': 'jquery-private' },
@@ -9,20 +10,11 @@ requirejs.config({
     }
 });
 
-define(function() {
+require(['Routes', 'App', 'LoginPage'], function (Routes, App, LoginPage) {
+    var routes = new Routes();
+    routes.register('/login', LoginPage);
 
-    function Main(routes) {
-        var oldLocation = location.href;
+    new App(routes);
 
-        setInterval(function() {
-            if(location.href != oldLocation) {
-                if (routes.respond) {
-                    routes.respond(location.href).send();
-                }
-                oldLocation = location.href
-            }
-        }, 500);
-    }
-
-    return Main;
+    window.location.href = window.location.href + '#!/login'
 });

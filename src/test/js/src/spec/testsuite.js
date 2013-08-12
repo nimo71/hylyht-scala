@@ -1,6 +1,8 @@
 define([
-        'spec/MainTest',
-        'spec/RoutesTest'
+        'spec/AppTest',
+        'spec/RoutesTest',
+        'spec/LoginPageTest',
+        'spec/SecureRootTest'
     ],
 function() {
 });

@@ -3,18 +3,13 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-	<display-name>OCRE</display-name>	
+	<display-name>WebMarker</display-name>
 	
 	<!-- Declare the existence of a servlet. -->
 	<!-- Handles all requests into the application -->
 	<servlet>
 		<servlet-name>FrontServlet</servlet-name>
-<!-- 		<servlet-class>httpextractor.adapter.servlet.FrontServlet</servlet-class> -->
-		<servlet-class>ocre.adapter.servlet.OcreServlet</servlet-class>
-<!-- 		<init-param> -->
-<!-- 			<param-name>routes</param-name> -->
-<!-- 			<param-value>app.ApplicationRoutes</param-value> -->
-<!-- 		</init-param> -->
+		<servlet-class>webmarker.adapter.servlet.WebMarkerServlet</servlet-class>
 	</servlet>
 
 	<!-- Map URLs to that servlet. -->

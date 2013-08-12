@@ -1,5 +1,4 @@
 bin/
-ocre.iml
 target/
 build/
 out/
@@ -9,3 +8,7 @@ out/
 .idea/
 .project
 .settings/
+.DS_Store
+npm-debug.log
+WebMarker.iml
+webmarker.iml

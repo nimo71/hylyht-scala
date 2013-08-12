@@ -3,10 +3,10 @@
 	function appendStyles() {
 		var css = document.createElement('style');
 		css.type = 'text/css';
-		css.id = 'ocre_styles';
+		css.id = 'web_marker_styles';
 		
-		var styles = '.ocre_highlight { background-color: #ff9 }';
-		styles += ' .ocre_bookmarklet_menu { '+ 
+		var styles = '.web_marker_highlight { background-color: #ff9 }';
+		styles += ' .web_marker_bookmarklet_menu { '+
 				'position: fixed; '+
 				'top: 0; '+
 				'left: 0; '+
@@ -21,7 +21,7 @@
 				'border-bottom-width: 1px; '+
 				'border-bottom-style: solid; '+
 			'}';
-		styles += ' .ocre_annotation { '+
+		styles += ' .web_marker_annotation { '+
 				'float: left; '+
 				'margin-left: 1em; '+
 				'margin-top: 0.7em; '+
@@ -31,7 +31,7 @@
 				'font-weight: normal; '+
 				'color: lightgrey !important; ' +
 			'}';
-		styles += ' .ocre_menu_button { '+
+		styles += ' .web_marker_menu_button { '+
 				'display: block; '+
 				'float: left; '+
 				'margin-left: 1em; '+
@@ -43,7 +43,7 @@
 				'font-weight: normal; '+
 				'color: white !important; ' +
 			'}';
-		styles += ' .ocre_menu_button:hover { '+
+		styles += ' .web_marker_menu_button:hover { '+
 				'font-weight: bold; '+
 				'font-style: italic; '+
 			'}';
@@ -56,14 +56,14 @@
 	
 	function createAnnotation(text) {
 		var span = document.createElement('span'); 
-        span.className = 'ocre_annotation';
+        span.className = 'web_marker_annotation';
         span.appendChild(document.createTextNode(text));
         return span;
 	}
 	
     function createButton(text, clickHandler) {
         var button = document.createElement('a'); 
-        button.className = 'ocre_menu_button';
+        button.className = 'web_marker_menu_button';
         button.appendChild(document.createTextNode(text)); 
         
         var href = document.createAttribute('href');
@@ -117,15 +117,15 @@
             el.className = newClassName;
     	}
     	
-        var ocreMenu = document.getElementsByClassName('ocre_bookmarklet_menu')[0];
-        document.body.removeChild(ocreMenu);
+        var webMarkerMenu = document.getElementsByClassName('web_marker_bookmarklet_menu')[0];
+        document.body.removeChild(webMarkerMenu);
         
-        var highlights = document.getElementsByClassName('ocre_highlight');
+        var highlights = document.getElementsByClassName('web_marker_highlight');
         for (i=0; i < highlights.length; i++) {
-        	removeClass(highlights[i], 'ocre_highlight');
+        	removeClass(highlights[i], 'web_marker_highlight');
         }
         
-        var style = document.getElementById('ocre_styles');
+        var style = document.getElementById('web_marker_styles');
         document.head.removeChild(style);
         
         window.bookmarklet = undefined; 
@@ -134,13 +134,13 @@
     // Change menu so that it displays down the right hand side of the page?? 
     // Could slide in and out from the right hand side along the top of the window??
 	function showMenu() {
-	    var ocreMenu = document.createElement('div');
-	    ocreMenu.className = 'ocre_bookmarklet_menu';
+	    var webMarkerMenu = document.createElement('div');
+	    webMarkerMenu.className = 'web_marker_bookmarklet_menu';
 	    
-	    document.body.insertBefore(ocreMenu, document.body.firstChild);
-	    ocreMenu.appendChild(createAnnotation('Select text and submit as a highlight...'));
-	    ocreMenu.appendChild(createButton('Submit Selection', submitSelection));
-	    ocreMenu.appendChild(createButton('Cancel', cancel));
+	    document.body.insertBefore(webMarkerMenu, document.body.firstChild);
+	    webMarkerMenu.appendChild(createAnnotation('Select text and submit as a highlight...'));
+	    webMarkerMenu.appendChild(createButton('Submit Selection', submitSelection));
+	    webMarkerMenu.appendChild(createButton('Cancel', cancel));
 	}
 
     // add bookmarklet stylesheet
