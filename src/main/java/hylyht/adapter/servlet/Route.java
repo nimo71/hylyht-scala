@@ -6,12 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public class Route {
 	private final Matcher[] matchers;
-
-	public Route(Matcher... matchers) {
-		this(".*", matchers);
-	}
 	
-	public Route(String resourcePath, Matcher... matchers) {
+	public Route(Matcher... matchers) {
 		this.matchers = matchers;
 	}
 

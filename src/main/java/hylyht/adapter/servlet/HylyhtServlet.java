@@ -1,9 +1,10 @@
 package hylyht.adapter.servlet;
 
+import hylyht.adapter.servlet.matchers.Or;
+import hylyht.adapter.servlet.resource.ServletResourceLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import hylyht.adapter.servlet.matchers.PathInfo;
-import hylyht.adapter.servlet.resource.ServletResourceLoader;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -30,7 +31,7 @@ public class HylyhtServlet extends HttpServlet {
 
         LoadStaticFile loadStaticFile = new LoadStaticFile(new ServletResourceLoader(getServletContext()));
 
-        routes.add(new Route(INDEX_HTML, new PathInfo(DEFAULT)), loadStaticFile)
+        routes.add(new Route(new Or(new PathInfo(INDEX_HTML), new PathInfo(DEFAULT))), loadStaticFile)
             .add(new Route(new PathInfo(JS_FILE_REGEX)), loadStaticFile)
             .add(new Route(new PathInfo(CSS_FILE_REGEX)), loadStaticFile)
             .add(new Route(new PathInfo(HTML_FILE_REGEX)), loadStaticFile);
