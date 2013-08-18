@@ -10,11 +10,11 @@ requirejs.config({
     }
 });
 
-require(['Routes', 'App', 'LoginPage'], function (Routes, App, LoginPage) {
+require(['Routes', 'App', 'LoginPage', 'LocationHasher'], function (Routes, App, LoginPage, LocationHasher) {
     var routes = new Routes();
     routes.register('/login', LoginPage);
 
     new App(routes);
 
-    window.location.href = window.location.href + '#!/login'
+    window.location.href = new LocationHasher(window.location.href).setHashPath('login')
 });

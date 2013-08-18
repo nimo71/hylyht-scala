@@ -1,4 +1,8 @@
-define(['App'], function(App) {
+define(['App', 'LocationHasher'], function(App, LocationHasher) {
+
+    var locationHasher = new LocationHasher(window.location.href);
+    if (locationHasher.hasHashPath())
+        window.location.href = locationHasher.clearHashPath();
 
     describe('App', function() {
 
@@ -22,7 +26,7 @@ define(['App'], function(App) {
 
         it ('should send a response from routes on window location change', function(done) {
             new App(new RoutesStub(done));
-            window.location.href = window.location.href + '#!/changed';
+            window.location.href = new LocationHasher(window.location.href).setHashPath('changed');
         });
 
     });

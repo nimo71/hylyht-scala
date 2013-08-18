@@ -3,6 +3,7 @@ apply plugin: 'scala'
 apply plugin: 'war'
 apply plugin: 'jetty'
 apply plugin: 'idea'
+apply plugin: 'rebel'
 
 repositories{
     mavenCentral() 
@@ -18,13 +19,6 @@ dependencies{
 
     compile "com.google.guava:guava:12.0"
 
-//    compile "com.google.inject:guice:3.0"
-//    compile "com.sun.jersey.contribs:jersey-guice:1.17.1"
-//
-//    compile "com.sun.jersey:jersey-server:1.17.1"
-//    compile "javax.ws.rs:jsr311-api:1.1.1"
-
-
     compile "com.sun.jersey:jersey-core:1.17.1"
     compile "com.sun.jersey:jersey-server:1.17.1"
     compile "com.sun.jersey:jersey-servlet:1.17.1"
@@ -32,15 +26,20 @@ dependencies{
     compile "javax.ws.rs:jsr311-api:1.1.1"
 
     testCompile "org.hamcrest:hamcrest-all:1.1"
-	testCompile "org.apache.httpcomponents:fluent-hc:4.2.1"
-	testCompile "org.mockito:mockito-all:1.9.0"
+    testCompile "org.apache.httpcomponents:fluent-hc:4.2.1"
+    testCompile "org.mockito:mockito-all:1.9.0"
     testCompile "junit:junit:4.11"
     testCompile "org.scalatest:scalatest_2.10:1.9.1"
 }
 
-
-// <name>Java.net Repository for Maven</name>
-// <url>http://download.java.net/maven/2/</url>
+buildscript {
+    repositories{
+        mavenCentral() 
+    }
+    dependencies {
+        classpath group: 'org.zeroturnaround', name: 'gradle-jrebel-plugin', version: '1.1.2'
+    }
+}
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '1.6'
@@ -51,11 +50,15 @@ sourceSets.main {
     scala.srcDir 'src/main/java'
 }
 
+war.dependsOn(generateRebel)
+
 [jettyRun, jettyRunWar,jettyStop]*.stopPort = 8081
 [jettyRun, jettyRunWar,jettyStop]*.stopKey = 'stopKey'
+
 test {
     exclude '**/*IT.*'
 }
+
 task integrationTest(type: Test, depends:test) {
     include '**/*IT.*'
     doFirst {
@@ -70,15 +73,9 @@ task integrationTest(type: Test, depends:test) {
 task jsTest(type:Exec) {
     workingDir './src/test/js'
 
-    //on windows:
-//    commandLine 'cmd', '/c', 'mocha-phantomjs TestRunner.html'
-
     //on linux
     commandLine 'phantomjs'
     args 'scripts/phantom-js-tests.js', 'SpecRunner.html'
-
-    //store the output instead of printing to the console:
-//    standardOutput = new ByteArrayOutputStream()
 
     //extension method stopTomcat.output() can be used to obtain the output:
     ext.output = {

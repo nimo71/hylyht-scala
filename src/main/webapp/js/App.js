@@ -6,8 +6,8 @@ define([], function() {
         setInterval(function() {
             if(location.href != oldLocation) {
                 if (routes.respond) {
-                    var hash = location.href.split('#!')[1];
-                    routes.respond(hash).send();
+                    var hashPath = location.href.split('#!')[1];
+                    routes.respond(hashPath).send();
                 }
                 oldLocation = location.href
             }
