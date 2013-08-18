@@ -1,9 +1,9 @@
-<form>
+<form data-bind="submit: login">
     <label for="email">Email</label>
-    <input type="text" name="email"/>
+    <input type="text" name="email" data-bind="value: email"/>
 
     <label for="password">Password</label>
-    <input type="password" name="password"/>
+    <input type="password" name="password" data-bind="value: password"/>
 
     <input type="submit" value="Login"/>
 </form>

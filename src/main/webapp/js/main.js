@@ -16,5 +16,5 @@ require(['Routes', 'App', 'LoginPage', 'LocationHasher'], function (Routes, App,
 
     new App(routes);
 
-    window.location.href = new LocationHasher(window.location.href).setHashPath('login')
+    window.location.href = new LocationHasher(window.location.href).setHashPath('/login')
 });

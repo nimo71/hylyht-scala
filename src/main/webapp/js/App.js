@@ -1,7 +1,7 @@
 define([], function() {
 
     function App(routes) {
-        var oldLocation = location.href;
+        var oldLocation;
 
         setInterval(function() {
             if(location.href != oldLocation) {

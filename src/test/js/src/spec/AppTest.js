@@ -26,7 +26,7 @@ define(['App', 'LocationHasher'], function(App, LocationHasher) {
 
         it ('should send a response from routes on window location change', function(done) {
             new App(new RoutesStub(done));
-            window.location.href = new LocationHasher(window.location.href).setHashPath('changed');
+            window.location.href = new LocationHasher(window.location.href).setHashPath('/changed');
         });
 
     });

@@ -1,6 +1,6 @@
 define([], function() {
 
-    describe("LoginPage", function(LoginPage) {
+    describe("LoginPage", function() {
 
         it("displays a login form", function() {
 

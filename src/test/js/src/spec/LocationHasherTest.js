@@ -3,17 +3,17 @@ define(['LocationHasher'], function(LocationHasher) {
     describe('LocationHasher', function() {
 
         it ('Should set the hash path', function() {
-            expect(new LocationHasher('http://test.com/index.html').setHashPath('hash/path'))
+            expect(new LocationHasher('http://test.com/index.html').setHashPath('/hash/path'))
                 .to.equal('http://test.com/index.html#!/hash/path');
         });
 
         it ('Should not change location when setting the same hash path', function() {
-            expect(new LocationHasher('http://test.com/index.html#!/hash/path').setHashPath('hash/path'))
+            expect(new LocationHasher('http://test.com/index.html#!/hash/path').setHashPath('/hash/path'))
                 .to.equal('http://test.com/index.html#!/hash/path');
         });
 
         it ('Should not add multiple hash paths', function() {
-            expect(new LocationHasher('http://test.com/index.html#!/hash/path').setHashPath('new/hash'))
+            expect(new LocationHasher('http://test.com/index.html#!/hash/path').setHashPath('/new/hash'))
                 .to.equal('http://test.com/index.html#!/new/hash');
         });
 
