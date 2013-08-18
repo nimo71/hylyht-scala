@@ -4,18 +4,21 @@
 
 <web-app>
 	<display-name>Hylyht</display-name>
-	
-	<!-- Declare the existence of a servlet. -->
-	<!-- Handles all requests into the application -->
-	<servlet>
-		<servlet-name>FrontServlet</servlet-name>
-		<servlet-class>hylyht.adapter.servlet.HylyhtServlet</servlet-class>
-	</servlet>
 
-	<!-- Map URLs to that servlet. -->
-	<servlet-mapping>
-		<servlet-name>FrontServlet</servlet-name>
-		<url-pattern>/*</url-pattern>
-	</servlet-mapping>
-	
+    <servlet>
+        <servlet-name>Front Servlet</servlet-name>
+        <servlet-class>
+            com.sun.jersey.spi.container.servlet.ServletContainer
+        </servlet-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>hylyht.adapter.servlet.resource</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Front Servlet</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
 </web-app>

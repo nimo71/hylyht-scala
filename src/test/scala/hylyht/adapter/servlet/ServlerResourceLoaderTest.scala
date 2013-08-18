@@ -1,6 +1,6 @@
 package hylyht.adapter.servlet
 
-import hylyht.adapter.servlet.resource.ServletResourceLoader
+import hylyht.adapter.servlet.resource.ServletContentLoader
 import org.junit.Before
 import org.junit.Test
 import org.mockito.{Mock, MockitoAnnotations}
@@ -21,7 +21,7 @@ class ServletResourceLoaderTest extends AssertionsForJUnit {
     @Test def returnsAbsentWhenResourcNotFound {
         val path: String = "unknownPath"
         when(servletContext.getResourcePaths(path)).thenReturn(null)
-        assertThat(new ServletResourceLoader(servletContext).load(path).isDefined, is(false))
+        assertThat(new ServletContentLoader(servletContext).load(path).isDefined, is(false))
     }
 
 }
