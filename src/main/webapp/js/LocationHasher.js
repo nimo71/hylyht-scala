@@ -18,5 +18,11 @@ define([], function() {
         return this.location.split('#!').length > 1;
     };
 
+    LocationHasher.go = function(hashPath) {
+        var locationHasher = new LocationHasher(window.location.href);
+        window.location.href = locationHasher.setHashPath(hashPath);
+        return locationHasher;
+    }
+
     return LocationHasher;
 });

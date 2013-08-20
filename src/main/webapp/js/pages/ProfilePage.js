@@ -1,10 +1,12 @@
-define(['jquery'], function($) {
+define(['SecureLoader'], function(SecureLoader) {
+
+    var loader = new SecureLoader();
 
     function ProfilePage() {
     }
 
     ProfilePage.prototype.send = function() {
-        $('#content').load('view/profile.html', function() {
+        loader.load('view/profile.html', function() {
             console.log('Profile Loaded...');
         }.bind(this));
     }

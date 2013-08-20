@@ -1,8 +1,10 @@
-define([], function() {
+define(['NotFound'], function(NotFound) {
 
     function Responses() {
-        this.notFound = new NotFound();
+
     }
+
+    Responses.notFound = new NotFound();
 
     return Responses;
 });

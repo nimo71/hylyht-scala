@@ -11,6 +11,10 @@
             com.sun.jersey.spi.container.servlet.ServletContainer
         </servlet-class>
         <init-param>
+            <param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
+            <param-value>com.sun.jersey.api.container.filter.LoggingFilter;hylyht.adapter.filter.AuthFilter</param-value>
+        </init-param>
+        <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
             <param-value>hylyht.adapter.servlet.resource</param-value>
         </init-param>

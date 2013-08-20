@@ -3,7 +3,9 @@ require.config({
     //urlArgs : "v="+(new Date()).getTime(),
     paths : {
         spec : '../../../test/js/src/spec',
-        vendor: '../../../test/js/src/vendor'
+        vendor: '../../../test/js/src/vendor',
+        jquery: 'vendor/jquery-1.9.1.min',
+        knockout: 'vendor/knockout-2.3.0'
     }
 });
 

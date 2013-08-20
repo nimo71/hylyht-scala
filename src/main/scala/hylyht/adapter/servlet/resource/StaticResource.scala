@@ -3,7 +3,8 @@ package hylyht.adapter.servlet.resource
 import com.sun.jersey.api.Responses
 import javax.servlet.ServletContext
 import javax.ws.rs._
-import javax.ws.rs.core.{MediaType, Response, Context}
+import javax.ws.rs.core.{UriInfo, MediaType, Response, Context}
+import java.net.URI
 
 @Path("")
 class StaticResource {

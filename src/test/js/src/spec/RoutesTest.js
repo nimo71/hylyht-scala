@@ -14,7 +14,7 @@ define(['Routes', 'NotFound'], function(Routes, NotFound) {
         });
 
         it('should respond with a page for a matching route', function() {
-            expect(routes.respond('/login')).to.deep.equal(new ResponseStub());
+            expect(new (routes.respond('/login'))).to.deep.equal(new ResponseStub());
         });
 
     });
