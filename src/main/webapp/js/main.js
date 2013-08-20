@@ -10,11 +10,16 @@ requirejs.config({
     }
 });
 
-require(['Routes', 'App', 'LoginPage', 'LocationHasher'], function (Routes, App, LoginPage, LocationHasher) {
-    var routes = new Routes();
-    routes.register('/login', LoginPage);
+require(['Routes', 'App', 'LocationHasher', 'pages/LoginPage', 'pages/RegistrationPage', 'pages/ProfilePage'],
+    function (Routes, App, LocationHasher, LoginPage, RegistrationPage, ProfilePage) {
 
-    new App(routes);
+        new App(
+            new Routes()
+                .register('/login', new LoginPage())
+                .register('/registration', new RegistrationPage())
+                .register('/profile', new ProfilePage())
+        );
 
-    window.location.href = new LocationHasher(window.location.href).setHashPath('/login')
-});
+        window.location.href = new LocationHasher(window.location.href).setHashPath('/login')
+    }
+);

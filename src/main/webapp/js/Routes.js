@@ -1,4 +1,4 @@
-define(['NotFound'], function(NotFound) {
+define(['Responses'], function(Responses) {
 
     function Routes() {
         this.routes = {};
@@ -6,9 +6,9 @@ define(['NotFound'], function(NotFound) {
 
     Routes.prototype.respond = function(path) {
         if (path in this.routes) {
-            return new this.routes[path];
+            return this.routes[path];
         }
-        return new NotFound();
+        return Responses.notFound;
     };
 
     Routes.prototype.register = function(path, response) {
