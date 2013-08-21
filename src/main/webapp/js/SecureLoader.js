@@ -1,4 +1,4 @@
-define(['jquery', 'LocationHasher'], function($, LocationHasher) {
+define(['jquery', 'App'], function($, App) {
 
     function SecureLoader() {
 
@@ -9,7 +9,7 @@ define(['jquery', 'LocationHasher'], function($, LocationHasher) {
             if (xhr.status === 401) {
                 console.log('Unauthorized... Loading login form');
                 // TODO: Add a flash message to display on the login form
-                LocationHasher.go('/login');
+                App.go('/login');
             }
             else if (typeof(success) !== 'undefined') success();
         }.bind(this));

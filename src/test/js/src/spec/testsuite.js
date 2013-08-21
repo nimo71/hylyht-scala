@@ -2,7 +2,8 @@ define([
         'spec/AppTest',
         'spec/RoutesTest',
         'spec/LoginPageTest',
-        'spec/LocationHasherTest'
+        'spec/LocationHasherTest',
+        'spec/RegistrationPageTest'
     ],
 function() {
 });

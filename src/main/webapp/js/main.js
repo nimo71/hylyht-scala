@@ -10,16 +10,16 @@ requirejs.config({
     }
 });
 
-require(['Routes', 'App', 'LocationHasher', 'pages/LoginPage', 'pages/RegistrationPage', 'pages/ProfilePage'],
-    function (Routes, App, LocationHasher, LoginPage, RegistrationPage, ProfilePage) {
+require(['Routes', 'App', 'LocationHasher', 'pages/LoginPage', 'pages/RegistrationPage', 'UserRegister', 'pages/ProfilePage'],
+    function (Routes, App, LocationHasher, LoginPage, RegistrationPage, UserRegister, ProfilePage) {
 
         new App(
             new Routes()
                 .register('/login', new LoginPage())
-                .register('/registration', new RegistrationPage())
+                .register('/registration', new RegistrationPage(new UserRegister()))
                 .register('/profile', new ProfilePage())
         );
 
-        window.location.href = new LocationHasher(window.location.href).setHashPath('/login')
+        App.go('/login');
     }
 );

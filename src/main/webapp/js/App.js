@@ -1,9 +1,8 @@
-define(['knockout'], function(ko) {
+define(['knockout', 'LocationHasher'], function(ko, LocationHasher) {
 
     function App(routes) {
         var oldLocation;
 
-        // TODO: Remove loop to set the url, get notification from LocationHasher instead
         setInterval(function() {
             if(location.href != oldLocation) {
                 if (routes.respond) {
@@ -14,6 +13,11 @@ define(['knockout'], function(ko) {
                 oldLocation = location.href
             }
         }, 500);
+    }
+
+    App.go = function(hashPath) {
+        var locationHasher = new LocationHasher(location.href);
+        location.href = locationHasher.setHashPath(hashPath);
     }
 
     return App;
