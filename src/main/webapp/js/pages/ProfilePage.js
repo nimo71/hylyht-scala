@@ -5,11 +5,11 @@ define(['SecureLoader'], function(SecureLoader) {
     function ProfilePage() {
     }
 
-    ProfilePage.prototype.send = function() {
+    ProfilePage.prototype.render = function() {
         loader.load('view/profile.html', function() {
             console.log('Profile Loaded...');
         }.bind(this));
-    }
+    };
 
     return ProfilePage;
 });

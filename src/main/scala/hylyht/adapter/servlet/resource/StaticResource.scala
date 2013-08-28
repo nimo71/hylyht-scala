@@ -16,7 +16,8 @@ class StaticResource {
 
     @GET
     @Produces(Array(MediaType.TEXT_HTML))
-    def getRoot(): Response = getHtml("index.html")
+    def getRoot(@Context ui : UriInfo): Response =
+        Response.seeOther(ui.getBaseUriBuilder().path("index.html").build()).build()
 
     @GET
     @Path("{pathInfo:.+\\.html$}")

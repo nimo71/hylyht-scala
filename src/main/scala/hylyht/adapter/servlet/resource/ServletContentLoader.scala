@@ -3,8 +3,7 @@ package hylyht.adapter.servlet.resource
 import hylyht.adapter.servlet.ContentLoader
 import javax.servlet.ServletContext
 
-class ServletContentLoader(
-        private val servletContext: ServletContext)
+class ServletContentLoader(private val servletContext: ServletContext)
     extends ContentLoader
 {
 

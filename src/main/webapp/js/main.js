@@ -15,11 +15,12 @@ require(['Routes', 'App', 'LocationHasher', 'pages/LoginPage', 'pages/Registrati
 
         new App(
             new Routes()
+                //todo: update login to accept a username on the path to populate the username field??
+                //todo: update routes to accept a regex on the page key
                 .register('/login', new LoginPage())
                 .register('/registration', new RegistrationPage(new UserRegister()))
                 .register('/profile', new ProfilePage())
         );
 
-        App.go('/login');
     }
 );

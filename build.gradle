@@ -83,3 +83,20 @@ task jsTest(type:Exec) {
     }
 }
 
+tasks.withType(ScalaCompile) {
+// use zync-based incremental compiler
+    scalaCompileOptions.useAnt = false
+}
+
+task scalaTest(dependsOn: testClasses) << {
+    ant.taskdef(name: 'scalatest',
+            classname: 'org.scalatest.tools.ScalaTestAntTask',
+            classpath: sourceSets.test.runtimeClasspath.asPath
+    )
+    ant.scalatest(runpath: sourceSets.test.compileClasspath,
+            fork: 'false',
+            haltonfailure: 'true',
+            suite: 'TranslatorTest')
+            { reporter(type: 'stdout') }
+}
+

@@ -1,5 +1,5 @@
 package hylyht.domain
 
 trait UserRegister {
-    def createUser(username: Username, password: Password);
+    def createUser(username: Username, password: Password)
 }

@@ -11,13 +11,13 @@ class AuthFilter extends ContainerRequestFilter {
      */
     @throws(classOf[WebApplicationException])
     override def filter(request: ContainerRequest): ContainerRequest = {
-        val method = request.getMethod
-        val path = request.getPath(true)
 
         if (isRoot(request)
+            || isIndex(request)
             || isStaticResource(request)
             || isLoginPage(request)
-            || isRegistrationPage(request)) {
+            || isRegistrationPage(request)
+            || isCreateUserApi(request)) {
             return request
         }
 
@@ -52,9 +52,14 @@ class AuthFilter extends ContainerRequestFilter {
 
     def isRoot(request: ContainerRequest) = request.getPath() == ""
 
+    def isIndex(request: ContainerRequest) = request.getPath() == "index.html"
+
     def isStaticResource(request: ContainerRequest): Boolean = request.getPath().matches(".+\\.css|.+\\.js")
 
     def isLoginPage(request: ContainerRequest) = request.getPath() == "view/loginForm.html"
 
     def isRegistrationPage(request: ContainerRequest) = request.getPath() == "view/registrationForm.html"
+
+    def isCreateUserApi(request: ContainerRequest) =
+        request.getMethod() == "PUT" && request.getPath() == "user"
 }

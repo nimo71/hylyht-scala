@@ -17,13 +17,13 @@ define(['jquery', 'knockout'], function($, ko) {
         this.viewModel.confirmEmail(confirmEmail);
         this.viewModel.password(password);
         this.viewModel.confirmPassword(confirmPassword);
-    }
+    };
 
-    RegistrationPage.prototype.send = function() {
+    RegistrationPage.prototype.render = function() {
         $('#content').load('view/registrationForm.html', function() {
             ko.applyBindings(this.viewModel);
         }.bind(this));
-    }
+    };
 
     RegistrationPage.prototype.register = function(form) {
         console.log("email: "+ this.viewModel.email());
@@ -38,7 +38,7 @@ define(['jquery', 'knockout'], function($, ko) {
         // On failure redisplay form with error message
 
         this.userRegister.create(this.viewModel.email(), this.viewModel.password());
-    }
+    };
 
     return RegistrationPage;
 });
