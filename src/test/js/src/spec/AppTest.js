@@ -7,20 +7,23 @@ define(['App', 'LocationHasher'], function(App, LocationHasher) {
     describe('App', function() {
 
         function ResponseStub(path, done) {
-            this.send = function() {
-                try {
-                    expect(path).to.match(/^\/changed$/);
-                    done();
-                }
-                catch (e) {
-                    done(e);
-                }
+            this.path = path;
+            this.done = done;
+        }
+        ResponseStub.prototype.render = function() {
+            try {
+                expect(this.path).to.match(/^\/changed$/);
+                this.done();
+            }
+            catch (e) {
+                this.done(e);
             }
         }
 
+
         function RoutesStub(done) {
             this.respond = function(path) {
-                return new ResponseStub(path, done);
+                return new ResponseStub(path, done).render();
             }
         }
 

@@ -3,14 +3,19 @@ package hylyht.adapter.filter
 import com.sun.jersey.spi.container.{ContainerRequest, ContainerRequestFilter}
 import javax.ws.rs.WebApplicationException
 import javax.ws.rs.core.Response.Status
+import org.slf4j.LoggerFactory
 
 class AuthFilter extends ContainerRequestFilter {
+
+    def logger = LoggerFactory.getLogger(classOf[AuthFilter])
 
     /**
       * Apply the filter : check input request, validate or not with user auth
      */
     @throws(classOf[WebApplicationException])
     override def filter(request: ContainerRequest): ContainerRequest = {
+
+        logger.debug("AuthFilter.filter(), path="+ request.getPath())
 
         if (isRoot(request)
             || isIndex(request)

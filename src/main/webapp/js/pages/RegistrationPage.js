@@ -1,8 +1,6 @@
-define(['jquery', 'knockout'], function($, ko) {
+define(['jquery', 'knockout', 'UserRegister'], function($, ko, UserRegister) {
 
-    function RegistrationPage(userRegister) {
-        this.userRegister = userRegister;
-
+    function RegistrationPage() {
         this.viewModel = {
             email : ko.observable(),
             confirmEmail : ko.observable(),
@@ -37,7 +35,7 @@ define(['jquery', 'knockout'], function($, ko) {
         // On success redirect to login form with username filled in
         // On failure redisplay form with error message
 
-        this.userRegister.create(this.viewModel.email(), this.viewModel.password());
+        new UserRegister().create(this.viewModel.email(), this.viewModel.password());
     };
 
     return RegistrationPage;
