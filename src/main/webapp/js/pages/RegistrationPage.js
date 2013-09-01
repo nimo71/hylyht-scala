@@ -1,6 +1,9 @@
-define(['jquery', 'knockout', 'UserRegister'], function($, ko, UserRegister) {
+define(['jquery', 'knockout', 'App'], function($, ko, App) {
 
-    function RegistrationPage() {
+    function RegistrationPage(UserRegister) {
+        this.UserRegister = UserRegister;
+        ko.cleanNode(document.body);
+
         this.viewModel = {
             email : ko.observable(),
             confirmEmail : ko.observable(),
@@ -35,8 +38,22 @@ define(['jquery', 'knockout', 'UserRegister'], function($, ko, UserRegister) {
         // On success redirect to login form with username filled in
         // On failure redisplay form with error message
 
-        new UserRegister().create(this.viewModel.email(), this.viewModel.password());
+        new this.UserRegister().create(
+            this.viewModel.email(),
+            this.viewModel.password(),
+            this.registrationSuccess,
+            this.registrationFailed );
     };
+
+    RegistrationPage.prototype.registrationSuccess = function(jsonResponse) {
+        console.log('Registration successful, jsonResponse:'+ jsonResponse);
+        App.go("/login/"+ jsonResponse.username);
+    }
+
+    RegistrationPage.prototype.registrationFailed = function(jqXHR, textStatus) {
+        console.log('Registration failed, status: '+ textStatus);
+        App.go("/registration")
+    }
 
     return RegistrationPage;
 });

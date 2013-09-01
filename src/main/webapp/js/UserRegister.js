@@ -1,29 +1,22 @@
-define(['jquery', 'App'], function($, App) {
+define(['jquery'], function($) {
 
     function UserRegister() {
 
     }
 
-    UserRegister.prototype.create = function(username, password) {
+    UserRegister.prototype.create = function(username, password, success, failed) {
         var request = $.ajax({
             url: "./user",
             type: "PUT",
             contentType: "application/json",
             dataType: "json",
-            data: {
+            data: JSON.stringify({
                 username: username,
                 password: password
-            }
+            })
         });
-        request.done(function(jsonResponse) {
-            console.log('done, jsonResponse:'+ jsonResponse);
-            App.go("/login")
-
-        });
-        request.fail(function(jqXHR, textStatus) {
-            console.log('fail, status:'+ textStatus);
-            App.go("/registration")
-        });
+        request.done(success);
+        request.fail(failed);
     }
 
     return UserRegister;

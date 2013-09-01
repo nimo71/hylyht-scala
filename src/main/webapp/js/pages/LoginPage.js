@@ -1,13 +1,14 @@
 define(['jquery', 'knockout'], function($, ko) {
 
     function LoginPage() {
-
+        //todo: create knockout page to ko.cleanNode etc...
+        ko.cleanNode(document.body);
     }
 
-    LoginPage.prototype.render = function() {
+    LoginPage.prototype.render = function(email) {
         $('#content').load('view/loginForm.html', function() {
             this.viewModel = {
-                email : ko.observable(),
+                email : ko.observable(email.slice(1)),
                 password : ko.observable(),
                 login : this.login.bind(this)
             };

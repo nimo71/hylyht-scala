@@ -2,23 +2,24 @@ define(['pages/RegistrationPage'], function(RegistrationPage) {
     const testUsername = "someusername";
     const testPassword = "somepassword";
 
+    var created = false;
+
     function StubUserRegister() {
         this.create = function(username, password) {
-            this.username = username;
-            this.password = password;
+            expect(username).to.equal(testUsername);
+            expect(password).to.equal(testPassword);
+            created = true;
         };
     }
 
     describe("RegistrationPage", function() {
 
         it("registers users in the registry", function() {
-            var userRegister = new StubUserRegister();
-            var page = new RegistrationPage(userRegister);
+            var page = new RegistrationPage(StubUserRegister);
             page.populate(testUsername, testUsername, testPassword, testPassword);
             page.register();
 
-            expect(userRegister.username).to.equal(testUsername);
-            expect(userRegister.password).to.equal(testPassword);
+            expect(created).to.be.true;
         })
     });
 });

@@ -7,7 +7,6 @@ define(['knockout', 'LocationHasher'], function(ko, LocationHasher) {
             if(location.href != lastLocation) {
                 if (routes.respond) {
                     var hashPath = location.href.split('#!')[1];
-                    ko.cleanNode(document.body); //todo: move clean node into the page...
                     routes.respond(hashPath);
                 }
                 lastLocation = location.href

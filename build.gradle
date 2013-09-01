@@ -3,7 +3,7 @@ apply plugin: 'scala'
 apply plugin: 'war'
 apply plugin: 'jetty'
 apply plugin: 'idea'
-apply plugin: 'rebel'
+//apply plugin: 'rebel'
 
 repositories{
     mavenCentral() 
@@ -16,6 +16,7 @@ dependencies{
     compile "ch.qos.logback:logback-classic:1.0.13"
     compile "org.eclipse.jetty.aggregate:jetty-all:7.6.4.v20120524"
     compile "org.apache.commons:commons-lang3:3.1"
+    compile "net.minidev:json-smart:1.2"
 
     compile "com.google.guava:guava:12.0"
 
@@ -50,7 +51,7 @@ sourceSets.main {
     scala.srcDir 'src/main/java'
 }
 
-war.dependsOn(generateRebel)
+//war.dependsOn(generateRebel)
 
 [jettyRun, jettyRunWar,jettyStop]*.stopPort = 8081
 [jettyRun, jettyRunWar,jettyStop]*.stopKey = 'stopKey'
@@ -59,7 +60,7 @@ test {
     exclude '**/*IT.*'
 }
 
-task integrationTest(type: Test, depends:test) {
+task integrationTest(type:Test, depends:test) {
     include '**/*IT.*'
     doFirst {
         jettyRun.daemon = true
@@ -83,6 +84,8 @@ task jsTest(type:Exec) {
     }
 }
 
+test.dependsOn(jsTest)
+
 tasks.withType(ScalaCompile) {
 // use zync-based incremental compiler
     scalaCompileOptions.useAnt = false
@@ -99,4 +102,3 @@ task scalaTest(dependsOn: testClasses) << {
             suite: 'TranslatorTest')
             { reporter(type: 'stdout') }
 }
-

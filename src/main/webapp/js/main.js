@@ -15,9 +15,9 @@ require(['Routes', 'App', 'LocationHasher', 'pages/LoginPage', 'pages/Registrati
 
         new App(
             new Routes()
-                //todo: update login to accept a username on the path to populate the username field??
-                .register('/login', LoginPage)
-                .register('/registration', RegistrationPage)
+                //todo: url encoding, should do this in LocationHasher so that matching is done on readable txt??
+                .register('/login(/[a-zA-Z0-9@\\.]*)?', LoginPage)
+                .register('/registration', RegistrationPage(UserRegister))
                 .register('/profile', ProfilePage)
         );
 
