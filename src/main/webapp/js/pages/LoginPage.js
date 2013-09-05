@@ -1,7 +1,7 @@
 define(['jquery', 'knockout'], function($, ko) {
 
     function LoginPage() {
-        //todo: create knockout page to ko.cleanNode etc...
+        //todo: create knockout page to ko.cleanNode, and be the supertype of all pages etc...
         ko.cleanNode(document.body);
     }
 
