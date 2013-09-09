@@ -16,7 +16,7 @@ require(['Routes', 'App', 'LocationHasher', 'pages/LoginPage', 'pages/Registrati
         new App(
             new Routes()
                 .register('/login(/[a-zA-Z0-9@\\.]*)?', LoginPage)
-                .register('/registration', RegistrationPage(UserRegister))
+                .register('/registration', RegistrationPage)
                 .register('/profile', ProfilePage)
         );
 

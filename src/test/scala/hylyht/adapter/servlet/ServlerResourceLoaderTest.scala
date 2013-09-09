@@ -1,6 +1,5 @@
 package hylyht.adapter.servlet
 
-import hylyht.adapter.servlet.resource.ServletContentLoader
 import org.junit.Before
 import org.junit.Test
 import org.mockito.{Mock, MockitoAnnotations}
@@ -9,6 +8,7 @@ import org.hamcrest.Matchers.is
 import org.junit.Assert.assertThat
 import org.mockito.Mockito.when
 import org.scalatest.junit.AssertionsForJUnit
+import hylyht.adapter.io.ServletContentLoader
 
 class ServletResourceLoaderTest extends AssertionsForJUnit {
 

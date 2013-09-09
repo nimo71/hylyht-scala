@@ -5,9 +5,10 @@ import javax.servlet.ServletContext
 import javax.ws.rs._
 import javax.ws.rs.core.{UriInfo, MediaType, Response, Context}
 import java.net.URI
+import hylyht.adapter.io.ServletContentLoader
 
 @Path("")
-class StaticResource {
+class StaticResourceEndpoint {
 
     @Context
     var servletContext: ServletContext = _

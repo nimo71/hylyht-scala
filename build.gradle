@@ -20,7 +20,6 @@ buildscript {
     }
 }
 
-
 repositories{
     mavenCentral()
 }
@@ -41,6 +40,8 @@ dependencies{
     compile "com.sun.jersey:jersey-servlet:1.17.1"
     compile "com.sun.jersey:jersey-json:1.17.1"
     compile "javax.ws.rs:jsr311-api:1.1.1"
+
+    compile "org.jdbi:jdbi:2.49"
 
     testCompile "org.hamcrest:hamcrest-all:1.1"
     testCompile "org.apache.httpcomponents:fluent-hc:4.2.1"

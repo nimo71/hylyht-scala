@@ -1,7 +1,8 @@
-package hylyht.adapter.servlet.resource
+package hylyht.adapter.io
 
 import hylyht.adapter.servlet.ContentLoader
 import javax.servlet.ServletContext
+import hylyht.adapter.servlet.resource.{StaticContent, Content}
 
 class ServletContentLoader(private val servletContext: ServletContext)
     extends ContentLoader

@@ -8,10 +8,11 @@ define(['jquery', 'knockout'], function($, ko) {
     LoginPage.prototype.render = function(email) {
         $('#content').load('view/loginForm.html', function() {
             this.viewModel = {
-                email : ko.observable(email.slice(1)),
+                email : ko.observable(),
                 password : ko.observable(),
                 login : this.login.bind(this)
             };
+            if (typeof email != 'undefined') this.viewModel.email(email.slice(1))
             ko.applyBindings(this.viewModel);
         }.bind(this));
     };

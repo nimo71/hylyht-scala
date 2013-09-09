@@ -1,5 +1,3 @@
 package hylyht.domain
 
-class Password {
-
-}
+case class Password(val value: String)
