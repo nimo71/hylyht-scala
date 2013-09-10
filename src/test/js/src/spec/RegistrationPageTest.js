@@ -1,8 +1,9 @@
-define(['pages/RegistrationPage'], function(RegistrationPage) {
-    const testUsername = "someusername";
-    const testPassword = "somepassword";
+const testUsername = "someusername";
+const testPassword = "somepassword";
 
-    var created = false;
+var created = false;
+
+define('UserRegister', [], function () {
 
     function StubUserRegister() {
         this.create = function(username, password) {
@@ -12,10 +13,15 @@ define(['pages/RegistrationPage'], function(RegistrationPage) {
         };
     }
 
+    return StubUserRegister;
+});
+
+define(['pages/RegistrationPage'], function(RegistrationPage) {
+
     describe("RegistrationPage", function() {
 
         it("registers users in the registry", function() {
-            var page = new RegistrationPage(StubUserRegister);
+            var page = new RegistrationPage();
             page.populate(testUsername, testUsername, testPassword, testPassword);
             page.register();
 

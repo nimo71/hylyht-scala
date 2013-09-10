@@ -12,7 +12,12 @@ define(['jquery', 'knockout'], function($, ko) {
                 password : ko.observable(),
                 login : this.login.bind(this)
             };
-            if (typeof email != 'undefined') this.viewModel.email(email.slice(1))
+
+            if (typeof email != 'undefined') {
+                this.viewModel.email(email.slice(1));
+                $("#password").focus();
+            };
+
             ko.applyBindings(this.viewModel);
         }.bind(this));
     };
