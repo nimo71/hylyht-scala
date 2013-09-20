@@ -1,4 +1,4 @@
-package hylyht.adapter.servlet
+package hylyht.adapter.ws
 
 import org.junit.Before
 import org.junit.Test

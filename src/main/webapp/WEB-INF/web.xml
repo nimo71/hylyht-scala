@@ -16,7 +16,7 @@
         </init-param>
         <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
-            <param-value>hylyht.adapter.servlet.resource</param-value>
+            <param-value>hylyht.adapter.ws.resource</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>

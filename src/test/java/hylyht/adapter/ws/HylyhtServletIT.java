@@ -1,4 +1,4 @@
-package hylyht.adapter.servlet;
+package hylyht.adapter.ws;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Request;

@@ -7,7 +7,7 @@ trait JdbiUserRepositoryComponent extends UserRepositoryComponent {
 
     private def logger = LoggerFactory.getLogger(classOf[JdbiUserRepositoryComponent])
 
-    def userRepository = new JdbiUserRepository()
+    def userRepository = new JdbiUserRepository
 
     class JdbiUserRepository extends UserRepository {
         def createUser(username: Username, password: Password): User = {

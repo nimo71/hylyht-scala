@@ -1,4 +1,4 @@
-package hylyht.adapter.servlet.resource
+package hylyht.adapter.ws.resource
 
 import com.sun.jersey.api.Responses
 import javax.servlet.ServletContext

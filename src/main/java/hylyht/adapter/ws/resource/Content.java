@@ -1,4 +1,4 @@
-package hylyht.adapter.servlet.resource;
+package hylyht.adapter.ws.resource;
 
 public interface Content {
 

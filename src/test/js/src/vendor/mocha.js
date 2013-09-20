@@ -1690,7 +1690,6 @@ function HTML(runner) {
   });
 
   runner.on('test end', function(test){
-    // TODO: add to stats
     var percent = stats.tests / total * 100 | 0;
     if (progress) progress.update(percent).draw(ctx);
 
@@ -1736,7 +1735,6 @@ function HTML(runner) {
     });
 
     // code
-    // TODO: defer
     if (!test.pending) {
       var pre = fragment('<pre><code>%e</code></pre>', clean(test.fn.toString()));
       el.appendChild(pre);

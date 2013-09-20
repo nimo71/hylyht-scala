@@ -1,4 +1,4 @@
-package hylyht.adapter.servlet.resource;
+package hylyht.adapter.ws.resource;
 
 import java.io.BufferedReader;
 import java.io.IOException;

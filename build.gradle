@@ -21,33 +21,35 @@ buildscript {
 }
 
 repositories{
+//    mavenRepo urls: 'http://scala-tools.org/repo-releases'
     mavenCentral()
 }
 
 dependencies{
-    providedCompile "javax.servlet:servlet-api:2.5"
-    compile "org.scala-lang:scala-library:2.10.2"
-    compile "org.slf4j:slf4j-api:1.7.5"
-    compile "ch.qos.logback:logback-classic:1.0.13"
-    compile "org.eclipse.jetty.aggregate:jetty-all:7.6.4.v20120524"
-    compile "org.apache.commons:commons-lang3:3.1"
-    compile "net.minidev:json-smart:1.2"
+    providedCompile 'javax.servlet:servlet-api:2.5'
+    compile 'org.scala-lang:scala-library:2.10.2'
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    compile 'ch.qos.logback:logback-classic:1.0.13'
+    compile 'org.eclipse.jetty.aggregate:jetty-all:7.6.4.v20120524'
+    compile 'org.apache.commons:commons-lang3:3.1'
+    compile 'net.minidev:json-smart:1.2'
+    compile 'com.google.guava:guava:12.0'  // todo: remove
+    compile 'com.sun.jersey:jersey-core:1.17.1'
+    compile 'com.sun.jersey:jersey-server:1.17.1'
+    compile 'com.sun.jersey:jersey-servlet:1.17.1'
+    compile 'com.sun.jersey:jersey-json:1.17.1'
+    compile 'javax.ws.rs:jsr311-api:1.1.1'
+    compile 'org.jdbi:jdbi:2.49'
+    testCompile 'org.hamcrest:hamcrest-all:1.1'
+    testCompile 'org.apache.httpcomponents:fluent-hc:4.2.1'
+    testCompile 'org.mockito:mockito-all:1.9.0'
+    testCompile 'junit:junit:4.11'
+    testCompile 'org.scalatest:scalatest_2.10:1.9.1'
+    testCompile 'org.scalamock:scalamock-scalatest-support_2.10:3.0.1'
 
-    compile "com.google.guava:guava:12.0"
-
-    compile "com.sun.jersey:jersey-core:1.17.1"
-    compile "com.sun.jersey:jersey-server:1.17.1"
-    compile "com.sun.jersey:jersey-servlet:1.17.1"
-    compile "com.sun.jersey:jersey-json:1.17.1"
-    compile "javax.ws.rs:jsr311-api:1.1.1"
-
-    compile "org.jdbi:jdbi:2.49"
-
-    testCompile "org.hamcrest:hamcrest-all:1.1"
-    testCompile "org.apache.httpcomponents:fluent-hc:4.2.1"
-    testCompile "org.mockito:mockito-all:1.9.0"
-    testCompile "junit:junit:4.11"
-    testCompile "org.scalatest:scalatest_2.10:1.9.1"
+//    // Libraries needed to run the scala tools
+//    scalaTools 'org.scala-lang:scala-compiler:2.10.2'
+//    scalaTools 'org.scala-lang:scala-library:2.10.2'
 }
 
 task wrapper(type: Wrapper) {
@@ -111,14 +113,12 @@ compileScala {
     scalaCompileOptions.daemonServer = "localhost:4243"
 }
 
-task scalaTest(dependsOn: testClasses) << {
+task test(overwrite: true, dependsOn: testClasses) << {
     ant.taskdef(name: 'scalatest',
             classname: 'org.scalatest.tools.ScalaTestAntTask',
             classpath: sourceSets.test.runtimeClasspath.asPath
     )
-    ant.scalatest(runpath: sourceSets.test.compileClasspath,
-            fork: 'false',
+    ant.scalatest(runpath: sourceSets.test.output.classesDir,
             haltonfailure: 'true',
-            suite: 'TranslatorTest')
-            { reporter(type: 'stdout') }
+            fork: 'false') {reporter(type: 'stdout')}
 }
